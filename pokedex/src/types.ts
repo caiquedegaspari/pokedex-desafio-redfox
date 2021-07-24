@@ -1,0 +1,32 @@
+export interface Pokemon {
+  id:string;
+  name:string;
+  pokedexNumber:number;
+  img_url:string;
+  generation:number;
+  evolutionState:number;
+  evolved:boolean;
+  familyID:number;
+  crossGen:boolean;
+  type1:string;
+  type2:string;
+  weather1:string;
+  weather2:string;
+  statTotal:number;
+  atk:number;
+  def:number;
+  sta:number;
+  legendary:number;
+  aquireable:number;
+  spawns:boolean;
+  regional:boolean;
+  raidable:number;
+  hatchable:number;
+  shiny:boolean;
+  nest:boolean;
+  new:boolean;
+  notGettable:boolean;
+  futureEvolve:boolean;
+  CP40:number;
+  CP39:number;
+}
