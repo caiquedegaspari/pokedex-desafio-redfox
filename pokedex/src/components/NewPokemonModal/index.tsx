@@ -315,6 +315,9 @@ useEffect(() => {
         </button>
       <ContentContainer>
         <h2>{title ? 'Atualizar Pokemon' : 'Cadastrar Pokemon'}</h2>
+      
+      
+       {/*  <label>Nome do pokemon:</label> */}
         
         <input 
          type="text"
@@ -323,6 +326,8 @@ useEffect(() => {
          onChange={event => setPokemonName(event.target.value)}
         />
 
+        {/* <label>Número na Pokedex:</label> */}
+        
         <input 
          type="number"
          value={pokedexNumber}
@@ -330,6 +335,8 @@ useEffect(() => {
          onChange={event => setPokedexNumber(Number(event.target.value))}
         />
 
+        {/* <label>Url para imagem:</label> */}
+        
         <input 
          type="text"
          value={img_url}
@@ -338,6 +345,8 @@ useEffect(() => {
         />
 
 
+        {/* <label>ID da família:</label> */}
+        
         <input 
           value={familyID}
          type="number"
@@ -345,6 +354,8 @@ useEffect(() => {
          onChange={event => setFamilyID(Number(event.target.value))}
         />
 
+        {/* <label>Status total:</label> */}
+        
         <input 
         value={statTotal}
          type="number"
@@ -352,6 +363,9 @@ useEffect(() => {
          onChange={event => setStatTotal(Number(event.target.value))}
         />
 
+       
+        {/* <label>Ataque:</label> */}
+        
         <input 
          type="number"
          value={atk}
@@ -359,15 +373,19 @@ useEffect(() => {
          onChange={event => setAtk(Number(event.target.value))}
         />
         
-
+       
+        {/* <label>Defesa:</label> */}
+        
         <input 
          type="number"
          value={def}
          placeholder="DEF"
          onChange={event => setDef(Number(event.target.value))}
         />
+      
 
-
+        {/* <label>STA:</label> */}
+        
         <input 
          type="number"
          value={sta}
@@ -375,19 +393,28 @@ useEffect(() => {
          onChange={event => setSta(Number(event.target.value))}
         />
 
-        <input 
-         type="number"
-         value={CP40}
-         placeholder="CP40"
-         onChange={event => setCP40(Number(event.target.value))}
-        />
+        
+          {/* <label>CP40:</label> */}
+          <input 
+          type="number"
+          value={CP40}
+          placeholder="CP40"
+          onChange={event => setCP40(Number(event.target.value))}
+          />
 
+        {/* <label>CP39:</label> */}
+        
         <input 
          type="number"
          value={CP39}
          placeholder="CP39"
          onChange={event => setCP39(Number(event.target.value))}
         />
+        
+
+        
+
+       
 
 <FormControlLabel control={
       <Checkbox 

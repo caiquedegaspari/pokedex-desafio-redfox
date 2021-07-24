@@ -142,10 +142,11 @@ export const Pokemons = styled.div`
 export const FilterButton = styled.button`
     width: 210px;
     height:70px;
+    margin:10px 0;
     border-radius: 5px;
     border:0;
-    color:#3d3d4d;
-    background-color: #ddd;
+    color:#ddd;
+    background-color: #c4001d;
     font-weight:bold;
     transition: 200ms;
 

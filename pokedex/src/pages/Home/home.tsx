@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import { NewPokemonModal } from '../../components/NewPokemonModal';
 import { usePokemon } from '../../hooks/usePokemon';
 import { Pokemon } from '../../types';
+import noAvatar from '../../assets/no-avatar.png'
 
 Modal.setAppElement('#root')
 
@@ -73,7 +74,6 @@ export function Homepage() {
           placeholder="Pesquisar por um Pokemon"
         />
   
-        <button type="submit">Pesquisar</button>
       </Form>
 
       <Link to="/pokemon-info">
@@ -87,7 +87,7 @@ export function Homepage() {
           filteredPokemonFromInput[0] ?
           <div>
               <Link to="/" onClick={()=>handleUpdatePokemon(filteredPokemonFromInput[0])} key={filteredPokemonFromInput[0].id}>
-                <img src={filteredPokemonFromInput[0].img_url} alt="Pokemon" />
+                <img src={filteredPokemonFromInput[0].img_url?filteredPokemonFromInput[0].img_url: noAvatar} alt="Pokemon" />
                 <div>
                   <strong>{filteredPokemonFromInput[0].name}</strong>
                   <p>Tipo: {filteredPokemonFromInput[0].type1} | Ataque: {filteredPokemonFromInput[0].atk} | Defesa:{filteredPokemonFromInput[0].def}</p>
@@ -104,7 +104,7 @@ export function Homepage() {
             return(
             <div>
               <Link to="/" onClick={()=>handleUpdatePokemon(pokemon)} key={pokemon.name}>
-                <img src={pokemon.img_url} alt="Pokemon" />
+                <img src={pokemon.img_url? pokemon.img_url: noAvatar} alt="Pokemon" />
                 <div>
                   <strong>{pokemon.name}</strong>
                   <p>Tipo: {pokemon.type1} | Ataque: {pokemon.atk} | Defesa:{pokemon.def}</p>

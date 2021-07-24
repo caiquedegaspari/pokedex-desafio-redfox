@@ -44,6 +44,7 @@ export default createGlobalStyle`
     overflow: scroll ;
     width:100%;
     max-width: 1080px;
+    max-height: 700px;
     background: #f0f2f5;
     padding: 3rem;
     position:relative;

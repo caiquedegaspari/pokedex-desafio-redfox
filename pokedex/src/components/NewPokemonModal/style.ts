@@ -9,8 +9,9 @@ export const ContentContainer = styled.form`
     margin-bottom: 25px;
   }
 
+
   input {
-    width: 49%;
+    width: 45%;
     padding: 0 24px;
     height: 64px;
     border-radius: 4px;
@@ -24,6 +25,21 @@ export const ContentContainer = styled.form`
     }
     & + input {
       margin-top:16px;
+    }
+  }
+  button{
+    width: 210px;
+    height:40px;
+    margin-left: 80%;
+    border-radius: 5px;
+    border:0;
+    color:#ddd;
+    background-color: #c4001d;
+    font-weight:bold;
+    transition: 200ms;
+
+    &:hover {
+      filter: brightness(0.8)
     }
   }
 `

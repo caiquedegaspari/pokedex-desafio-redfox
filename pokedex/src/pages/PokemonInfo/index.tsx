@@ -1,9 +1,8 @@
 import MaterialTable from 'material-table'
-import React, { forwardRef } from 'react'
+import { ReactDOM } from 'react';
+import React, { forwardRef, useState } from 'react'
 import { usePokemon } from '../../hooks/usePokemon'
 
-import { FiChevronRight } from 'react-icons/fi'
-import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
@@ -15,16 +14,20 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import SortArrow from '@material-ui/icons/Sort';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import { Clear, ClearAll, Filter } from '@material-ui/icons';
+import { Clear, ClearAll, Delete, Edit, Filter } from '@material-ui/icons';
 
-import { Container } from './style';
+import { Pokemon } from '../../types';
+import { NewPokemonModal } from '../../components/NewPokemonModal';
+import { FiTrash, FiTrash2 } from 'react-icons/fi';
+import { Button } from './style';
+import { Link } from 'react-router-dom';
 
 export function PokemonInfo() {
 
-  const { pokemons } = usePokemon()
+  const { pokemons,updatePokemon, removePokemon } = usePokemon()
+  const [pokemonToUpdate,setPokemonToUpdate] = useState<Pokemon>()  
 
   const columns = [
-    
     {title:"Name", field: "name"},
     {title:"Número na Pokedex", field: "pokedexNumber"},
     {title:"Geração", field: "generation"},
@@ -55,12 +58,49 @@ export function PokemonInfo() {
     {title:"100% CP @ 39", field: "CP39"},    
     {title:"ID", field: "id"},
   ]
+  const [isNewPokemonModalOpen, setIsNewPokemonModalOpen] = useState(false);
 
+  function handleUpdatePokemon(pokemonToUpdateFromTable:Pokemon | undefined) {
+    if(pokemonToUpdateFromTable){
+      setPokemonToUpdate(pokemonToUpdateFromTable)
+      console.log("POKEMON TO UPDATE:", pokemonToUpdate)
+      setIsNewPokemonModalOpen(true);
+    }
+    
+  }
+
+  function handleDelete(pokemonToDeleteID:string){
+    if(pokemonToDeleteID){
+      removePokemon(pokemonToDeleteID)
+    }
+  }
+
+  function handleCloseNewPokemonModal() {
+    setIsNewPokemonModalOpen(false)
+    
+  }
 
   return(
-    
-       <MaterialTable 
+    <>
+    <Link to="/">
+      <Button>
+        Voltar
+      </Button>
+    </Link>
+
+       <MaterialTable
+        editable={{
+          onRowDelete: oldData =>
+            new Promise<void>((resolve, reject)=>{
+              setTimeout(()=>{
+                handleDelete(oldData.id);
+                resolve();
+              }, 1000)
+            })
+          
+        }} 
         icons={{
+          
           Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
           Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
           FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
@@ -70,25 +110,40 @@ export function PokemonInfo() {
           ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
           Clear: forwardRef((props, ref) => <ClearAll {...props} ref={ref} />),
           SortArrow: forwardRef((props, ref) => <SortArrow {...props} ref={ref} />),
+          Delete: forwardRef((props, ref) => <Delete {...props} ref={ref} />),
+          Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+          Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
         }}
+        
         title="Dados Pokemon"
         data={pokemons}
         columns={columns}
+
+        
+        onRowClick={(event, rowData) => handleUpdatePokemon(rowData)}
         options={
           {filtering:true}
         }
+        
        
-      /*   actions={[
+        /* actions={[
           {
-            icon: () => <FilterList />,
-            tooltip: 'Send Email Reminder',
-            onClick: (event, rowData) => alert('You send '),
+            icon: () => <FiTrash />,
+            tooltip: 'Excluir Pokemon',
+            onClick: (event) => {console.log("VALOR DO BOTÃO:",event.target.value)},
+            
           }, 
-          
-        ]}*/
+        ]} */
     />    
-    
-   
+
+      <NewPokemonModal
+        isOpen={isNewPokemonModalOpen}
+        pokemon={pokemonToUpdate}
+        onRequestClose={handleCloseNewPokemonModal}
+        
+      />      
+
+   </>
 
   )
 }
