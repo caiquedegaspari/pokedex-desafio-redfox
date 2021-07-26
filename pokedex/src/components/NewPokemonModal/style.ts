@@ -52,3 +52,17 @@ export const Container = styled.div`
 export const LabelContainer = styled.section`
   margin: 16px;
 `
+
+export const TwoInputContainer = styled.div`
+  display:flex;
+  margin-top:16px;
+
+  div{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    input{ 
+      width:90%;
+    }
+  }
+`

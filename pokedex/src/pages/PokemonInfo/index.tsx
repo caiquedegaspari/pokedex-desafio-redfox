@@ -28,6 +28,7 @@ export function PokemonInfo() {
   const [pokemonToUpdate,setPokemonToUpdate] = useState<Pokemon>()  
 
   const columns = [
+    //{title: "", field:'img_url', render: (e:Pokemon)=>{ <img src={e.img_url}/>}},
     {title:"Name", field: "name"},
     {title:"Número na Pokedex", field: "pokedexNumber"},
     {title:"Geração", field: "generation"},
@@ -114,6 +115,7 @@ export function PokemonInfo() {
           Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
           Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
         }}
+        onChangePage={(pageNumber:number)=>{console.log("On changePage:", pageNumber)}}
         
         title="Dados Pokemon"
         data={pokemons}
@@ -122,7 +124,10 @@ export function PokemonInfo() {
         
         onRowClick={(event, rowData) => handleUpdatePokemon(rowData)}
         options={
-          {filtering:true}
+          {
+            filtering:true,
+            headerStyle:{zIndex:0}
+          }
         }
         
        

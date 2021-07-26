@@ -1,6 +1,6 @@
 import React, { FormEvent } from 'react';
 import Modal from 'react-modal';
-import { ContentContainer, LabelContainer, Container } from './style';
+import { ContentContainer, LabelContainer, Container, TwoInputContainer } from './style';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -34,15 +34,12 @@ interface NewPokemonModalProps {
 
 export function NewPokemonModal({isOpen, onRequestClose, pokemon}:NewPokemonModalProps) {
 
-  //console.log('is open', isOpen)
   const [open,setOpen] = useState(false)
   
   const { createPokemon, pokemons, updatePokemon  } = usePokemon();
   const [ pokemonToAdd, setPokemonToAdd] = useState<Pokemon>();
-  //console.log('POKEMON NAME:', !!pokemon);
   /********************************INPUT ************************************/
   const [pokemonName, setPokemonName] = useState("");
-  //console.log("POKEMON NAME", pokemonName)
   const [ pokedexNumber, setPokedexNumber ] = useState(0);
   const [ img_url, setImg_url] = useState('');
   const [ familyID, setFamilyID] = useState(0);
@@ -217,8 +214,18 @@ useEffect(() => {
 
 
 
- async function handleCreatePokemon(){
-   
+ async function handleCreatePokemon(event:FormEvent){
+    if(
+      pokemonName &&
+      pokedexNumber &&
+      img_url &&
+      familyID &&
+      statTotal &&
+      atk &&
+      def &&
+      sta &&
+      CP40 &&
+      CP39 )
     await createPokemon({
       id: uuidv4(),
       CP39,
@@ -253,8 +260,10 @@ useEffect(() => {
       
             
     })
-    if(!pokemonToAdd){
-      return toast.error('Insira um pokemon')
+    else{
+      event.preventDefault();
+      return toast.error('Preencha os dados corretamente')
+      
     }
     
   }
@@ -316,85 +325,110 @@ useEffect(() => {
       <ContentContainer>
         <h2>{title ? 'Atualizar Pokemon' : 'Cadastrar Pokemon'}</h2>
       
-      
-       {/*  <label>Nome do pokemon:</label> */}
+      <TwoInputContainer>
+        <div>
+           <label>Nome do pokemon:</label>
         
-        <input 
-         type="text"
-         value={pokemonName}
-         placeholder="Nome do Pokemon"
-         onChange={event => setPokemonName(event.target.value)}
-        />
-
-        {/* <label>Número na Pokedex:</label> */}
+          <input 
+          type="text"
+          value={pokemonName}
+          placeholder="Nome do Pokemon"
+          onChange={event => setPokemonName(event.target.value)}
+          />
+        </div>
+        <div>
+          <label>Número na Pokedex:</label>
         
-        <input 
-         type="number"
-         value={pokedexNumber}
-         placeholder="Número na Pokedex"
-         onChange={event => setPokedexNumber(Number(event.target.value))}
-        />
+          <input 
+          type="number"
+          value={pokedexNumber}
+          placeholder="Número na Pokedex"
+          onChange={event => setPokedexNumber(Number(event.target.value))}
+          />
 
-        {/* <label>Url para imagem:</label> */}
+        </div>
+      </TwoInputContainer>
+       
+      <TwoInputContainer>
+        <div>
+          <label>Url para imagem:</label>
         
-        <input 
-         type="text"
-         value={img_url}
-         placeholder="Url para foto"
-         onChange={event => setImg_url(event.target.value)}
-        />
-
-
-        {/* <label>ID da família:</label> */}
+          <input 
+          type="text"
+          value={img_url}
+          placeholder="Url para foto"
+          onChange={event => setImg_url(event.target.value)}
+          />
+        </div>
+        <div>
+          <label>ID da família:</label>
         
-        <input 
-          value={familyID}
-         type="number"
-         placeholder="Family ID"
-         onChange={event => setFamilyID(Number(event.target.value))}
-        />
+          <input 
+            value={familyID}
+          type="number"
+          placeholder="Family ID"
+          onChange={event => setFamilyID(Number(event.target.value))}
+          />
 
-        {/* <label>Status total:</label> */}
+        </div>
+      </TwoInputContainer>
         
-        <input 
-        value={statTotal}
-         type="number"
-         placeholder="Status total"
-         onChange={event => setStatTotal(Number(event.target.value))}
-        />
+      <TwoInputContainer>
+        <div>
+          <label>Status total:</label>
+        
+          <input 
+          value={statTotal}
+          type="number"
+          placeholder="Status total"
+          onChange={event => setStatTotal(Number(event.target.value))}
+          />
 
        
-        {/* <label>Ataque:</label> */}
+        </div>
+        <div>
+          <label>Ataque:</label>
         
-        <input 
-         type="number"
-         value={atk}
-         placeholder="ATK"
-         onChange={event => setAtk(Number(event.target.value))}
-        />
-        
-       
-        {/* <label>Defesa:</label> */}
-        
-        <input 
-         type="number"
-         value={def}
-         placeholder="DEF"
-         onChange={event => setDef(Number(event.target.value))}
-        />
-      
+          <input 
+          type="number"
+          value={atk}
+          placeholder="ATK"
+          onChange={event => setAtk(Number(event.target.value))}
+          />
+          
+        </div>
+      </TwoInputContainer>
 
-        {/* <label>STA:</label> */}
-        
-        <input 
-         type="number"
-         value={sta}
-         placeholder="STA"
-         onChange={event => setSta(Number(event.target.value))}
-        />
 
+      <TwoInputContainer>
+        <div>
+          <label>Defesa:</label>
         
-          {/* <label>CP40:</label> */}
+          <input 
+          type="number"
+          value={def}
+          placeholder="DEF"
+          onChange={event => setDef(Number(event.target.value))}
+          />
+        
+        </div>
+        <div>
+          <label>STA:</label>
+        
+          <input 
+          type="number"
+          value={sta}
+          placeholder="STA"
+          onChange={event => setSta(Number(event.target.value))}
+          />
+    
+        </div>
+      </TwoInputContainer>
+        
+        
+      <TwoInputContainer>
+        <div>
+          <label>CP40:</label>
           <input 
           type="number"
           value={CP40}
@@ -402,14 +436,24 @@ useEffect(() => {
           onChange={event => setCP40(Number(event.target.value))}
           />
 
-        {/* <label>CP39:</label> */}
+        </div>
+        <div>
+          <label>CP39:</label>
         
-        <input 
-         type="number"
-         value={CP39}
-         placeholder="CP39"
-         onChange={event => setCP39(Number(event.target.value))}
-        />
+          <input 
+          type="number"
+          value={CP39}
+          placeholder="CP39"
+          onChange={event => setCP39(Number(event.target.value))}
+          />
+          
+        </div>
+      </TwoInputContainer>     
+        
+
+        
+        
+          
         
 
         

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FilterButton, Form, Pokemons, Title } from './style';
+import { FilterButton, Form, ImportSheet, Pokemons, Title } from './style';
 import { Link } from 'react-router-dom';
 import { FiTrash } from 'react-icons/fi'
 import { HeaderNav } from '../../components/Header';
@@ -8,6 +8,7 @@ import { NewPokemonModal } from '../../components/NewPokemonModal';
 import { usePokemon } from '../../hooks/usePokemon';
 import { Pokemon } from '../../types';
 import noAvatar from '../../assets/no-avatar.png'
+import * as XLSX from 'xlsx';
 
 Modal.setAppElement('#root')
 
@@ -24,22 +25,19 @@ export function Homepage() {
   const [filteredPokemon,setFilteredPokemon] = useState<Pokemon[]>()
 
   const [filter, setFilter] = useState(false);
+  const [ sheetFile, setSheetFile] = useState<FormData>()
 
   const filteredPokemonFromInput = pokemons.filter(pokemon => pokemon.name === findPokemonByName);
 
   function searchPokemonByName(event:React.FormEvent) {
     event.preventDefault()
-    //console.log('pokemon',findPokemonByName)
    
     setFilteredPokemon(filteredPokemonFromInput)
-    //console.log("FILTERED POKEMON:", filteredPokemon)
     
   }
 
    function handleRemovePokemon(pokemonID:string) {
      removePokemon(pokemonID)
-    //console.log("Excluir pokemon")
-    //console.log(pokemonID)
   }
 
   const [isNewPokemonModalOpen, setIsNewPokemonModalOpen] = useState(false);
@@ -53,7 +51,6 @@ export function Homepage() {
     setPokemonToAdd(false)
     setIsNewPokemonModalOpen(true);
     setPokemonToUpdate(pokemon);
-    //console.log("POKEMON TO UPDATED", pokemon)
   }
 
 
@@ -61,7 +58,14 @@ export function Homepage() {
     setIsNewPokemonModalOpen(false)
     
   }
- 
+
+  function onFileChange(event:any){
+    console.log(event); 
+    setSheetFile(event.target.files[0]); 
+  }; 
+
+  
+  
   return(
     <>
       <HeaderNav onOpenNewPokemonModal={handleOpenNewPokemonModal}/>
@@ -81,7 +85,14 @@ export function Homepage() {
           Filtro Avançado
         </FilterButton>
       </Link>
-     
+      
+      {/* <ImportSheet 
+        type="file"
+        accept=".xlsx,.odt" 
+        onChange={onFileChange}
+        
+      /> */}
+    
       <Pokemons>
         {
           filteredPokemonFromInput[0] ?

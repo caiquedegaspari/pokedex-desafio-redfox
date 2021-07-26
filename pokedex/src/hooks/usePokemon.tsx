@@ -92,7 +92,7 @@ export function PokemonProvider({ children }: PokemonProviderProps): JSX.Element
       const updatedPokemon = response.data;
       setPokemons([...pokemons, updatedPokemon])
       localStorage.setItem('@Pokedex:pokemons', JSON.stringify(pokemons));
-      toast.success('Pokemon criado com sucesso!');
+      toast.success('Pokemon atualizado com sucesso!');
 
     } catch {
       toast.error('Erro atualizando o pokemon')
@@ -120,6 +120,7 @@ export function PokemonProvider({ children }: PokemonProviderProps): JSX.Element
       console.log("POKEMONS TO KEEP ID", pokemonsToKeep)
       setPokemons(pokemonsToKeep)
       localStorage.setItem('@Pokedex:pokemons', JSON.stringify(pokemonsToKeep))
+      toast.success('Pokemon excluido com sucesso!')
       api.delete(`/pokemons/${pokemonID}`)
       return;
     } catch(err) {

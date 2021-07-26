@@ -18,7 +18,7 @@ export const Form = styled.form`
     height:70px;
     padding: 0 24px;
     border: 0;
-    border-radius: 5px 0 0 5px;
+    border-radius: 5px;
     background-color: #ddd;
     color: #3a3a3a;
     border: 2px solid #fff;
@@ -29,20 +29,7 @@ export const Form = styled.form`
     }
   }
 
-  button {
-    width: 210px;
-    height:70px;
-    background-color: #c4001d;
-    border-radius: 0 5px 5px 0;
-    border:0;
-    color:#fff;
-    font-weight:bold;
-    transition: 200ms;
-
-    &:hover {
-      filter: brightness(0.8)
-    }
-  }
+  
 
 `
 
@@ -145,7 +132,23 @@ export const FilterButton = styled.button`
     margin:10px 0;
     border-radius: 5px;
     border:0;
-    color:#ddd;
+    color:#fff;
+    background-color: #c4001d;
+    font-weight:bold;
+    transition: 200ms;
+
+    &:hover {
+      filter: brightness(0.8)
+    }
+`
+
+export const ImportSheet = styled.input`
+  width: 210px;
+    height:70px;
+    margin:10px 280px;
+    border-radius: 5px;
+    border:0;
+    color:#fff;
     background-color: #c4001d;
     font-weight:bold;
     transition: 200ms;
